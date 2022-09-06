@@ -1,48 +1,45 @@
 @startuml
 
-class PokerCard {
+
+class Game {
+  +cards1:array
+  +cards2:array
+  +__construct():void
+  +start():array
+  +getRule():Rule
+
+}
+
+class Player {
+
+}
+
+class Dealer {
+
+}
+
+class Card {
   +CARD_RANK:array
   -suitNumber:string
   +__construct():void
   +getRank():int
 }
-
-class PokerGame {
-  +cards1:array
-  +cards2:array
-  +__construct():void
-  +start():array
-  +getRule():PokerRule
-
-}
-
-class PokerHandEvaluator {
-  -rule:PokerRule
+class HandEvaluator {
+  -rule:Rule
   +__construct():void
   +getHand():array
   +getWinner():int
 }
 
-interface PokerRule {
+interface Rule {
   +HIGH_CARD:string
   +STRAIGHT:string
   +getHand():array
   +getWinner():int
 }
 
-class PokerTwoCardRule implements PokerRule {
-  +HIGH_CARD:string
-  +STRAIGHT:string
-  +PAIR:string
-  +HAND_RANK:array
-  +getHand():array
-  +getWinner():int
-  +isPair():bool
-  +isStraight():bool
-  +isMinMax():bool
-}
 
-class PokerThreeCardRule implements PokerRule {
+class ThreeCardRule implements Rule {
   +HIGH_CARD:string
   +STRAIGHT:string
   +PAIR:string
@@ -57,10 +54,9 @@ class PokerThreeCardRule implements PokerRule {
   +isThreeCard():bool
 }
 
-PokerGame "1" o-- "2..3" PokerCard:1ゲームにつき\n2 or 3枚配られる?
-PokerGame "1" o-- "2" PokerHandEvaluator:1ゲームにつき\n2プレイヤーの判定？
-PokerHandEvaluator "1" o-- PokerTwoCardRule
-PokerHandEvaluator "1" o-- PokerThreeCardRule
+Game "1" o-- "2..3" Card:1ゲームにつき\n2 or 3枚配られる?
+Game "1" o-- "2" HandEvaluator:1ゲームにつき\n2プレイヤーの判定？
+HandEvaluator "1" o-- ThreeCardRule
 
 
 @enduml

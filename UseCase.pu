@@ -1,0 +1,83 @@
+/'3
+①実現したいこと
+
+  カードが配布されている。
+--繰り返し--
+  カードをランクに変換する。
+  カードから役を判定する。
+------------
+
+プレイヤー同士の役を比較し、勝敗を判定する。
+プレイヤーの役と勝敗結果を出力する。
+
+②候補をピックアップ
+
+＜アクター＞
+プレイヤーA
+プレイヤーB
+カード
+
+
+＜ユースケース＞
+
+
+'/
+
+@startuml
+left to right direction
+skinparam usecase {
+BackgroundColor #d1eb7c
+BorderColor YellowGreen
+ArrowColor #eb8909
+ActorBorderColor black
+ActorFontName Courier
+ActorBackgroundColor pink
+}
+
+:Card: as Card
+:Player: as Player
+:Dealer: as Dealer
+:Evaluator: as Evaluator
+:Rule: as Rule
+
+package Game {
+  (D1.カードを配る) as D1
+  (P1.カードを引く) as P1
+  (D4.カードを引く) as D2
+  (2.数値を加える) as P2
+  (P3.勝負する) as P3
+  (5.強弱を比較する) as P4
+  (6.勝者を出力する) as P5
+}
+
+
+package Card {
+  (カードを引く)
+  (カードを変換する)
+}
+
+package Deck {
+  (配列を生成する)
+  (シャッフルする)
+}
+
+
+Player -- P1
+Player -- P3
+
+Dealer -- D1
+Dealer -- D2
+
+P3 --> P4
+P1 -> P2
+P1 <- P2
+P2 -> P3
+D2 -> P4
+P4 -> P5
+
+Player <|- Evaluator
+Evaluator -- P4
+
+' note right of P3 : TwoCardRule \n \t or \n ThreeCardRule
+
+@enduml
