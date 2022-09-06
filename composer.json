@@ -1,0 +1,20 @@
+{
+    "name": "root/html",
+    "autoload": {
+        "psr-4": {
+            "Root\\Html\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpmd/phpmd": "@stable",
+        "phpstan/phpstan": "^1.8",
+        "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "*"
+    },
+    "scripts": {
+        "phpcs": "./vendor/bin/phpcs --standard=./customPSR12.xml",
+        "phpmd": "./vendor/bin/phpmd tests/ text rulesets.xml",
+        "phpstan": "./vendor/bin/phpstan analyse -c phpstan.neon",
+        "phpunit": "./vendor/bin/phpunit"
+    }
+}
