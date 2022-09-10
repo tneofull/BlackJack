@@ -2,33 +2,49 @@
 
 
 class Game {
-  +cards1:array
-  +cards2:array
+  ' +cards1:array
+  ' +cards2:array
   +__construct():void
   +start():array
-  +getRule():Rule
 
 }
 
-class Player {
-
+interface Person {
+  +name:string
+  +getHand():array
+  +addCard():array
 }
 
-class Dealer {
+class Player implements Person {
+  +name:string
+  +getHand():array
+  +addCard():array
+}
 
+class Dealer implements Person {
+  +name:string
+  +getHand():array
+  +addCard():array
 }
 
 class Card {
   +CARD_RANK:array
-  -suitNumber:string
+  +CARD_NAME:array
+  -suit:string
+  -num:string
   +__construct():void
-  +getRank():int
+  +getSuit():string
+  +getNum():mixed
+  +getCardRank():int
+  +getCardName():string
 }
-class HandEvaluator {
-  -rule:Rule
+
+class Deck {
+  -cards:array
   +__construct():void
-  +getHand():array
-  +getWinner():int
+  +distributeCards():array
+  +addCard():array
+  +drawCard():Card
 }
 
 interface Rule {
@@ -39,24 +55,8 @@ interface Rule {
 }
 
 
-class ThreeCardRule implements Rule {
-  +HIGH_CARD:string
-  +STRAIGHT:string
-  +PAIR:string
-  +THREE_CARD:string
-  +HAND_RANK:array
-  +getHand():array
-  +getWinner():int
-  +isPair():bool
-  +isStraight():bool
-  +isA23Straight():bool
-  +isMinMax():bool
-  +isThreeCard():bool
-}
-
 Game "1" o-- "2..3" Card:1ゲームにつき\n2 or 3枚配られる?
 Game "1" o-- "2" HandEvaluator:1ゲームにつき\n2プレイヤーの判定？
-HandEvaluator "1" o-- ThreeCardRule
 
 
 @enduml

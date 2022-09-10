@@ -22,22 +22,31 @@ class Card
         'K' => 10,
     ];
 
+    public const CARD_NAME = [
+        'S' => 'スペード',
+        'C' => 'クラブ',
+        'H' => 'ハート',
+        'D' => 'ダイヤ',
+    ];
+
     public function getSuit(): string
     {
         return $this->suit;
     }
 
-    public function getNum(): int
+    public function getNum(): mixed
     {
         return $this->num;
     }
 
-    public function getCardRank()
+    public function getCardRank(): int
     {
-        $this->num = self::CARD_RANK[$this->num];
+        $this->num = self::CARD_RANK[$this->getNum()];
         return $this->num;
+    }
+
+    public function getCardName(): string
+    {
+        return self::CARD_NAME[$this->getSuit()];
     }
 }
-
-$hand = new Card('H', 'K');
-var_dump($hand->getCardRank());

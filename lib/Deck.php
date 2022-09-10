@@ -8,8 +8,8 @@ class Deck
     public function __construct()
     {
         $this->cards = [];
-        foreach (["S","C","H","D"] as $suit) {
-            foreach (["A",2,3,4,5,6,7,8,9,10,"J","Q","K"] as $num) {
+        foreach (["S", "C", "H", "D"] as $suit) {
+            foreach (["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"] as $num) {
                 $this->cards[] = new Card($suit, $num);
             }
         }
@@ -18,12 +18,26 @@ class Deck
         shuffle($this->cards);
     }
 
-    public function drawCards(int $num, array $hands)
+    // カードを2枚配る(ゲームの初期セット)
+    public function distributeCards(): array
     {
-        // 束から1枚引く
-        for ($i = 1; $i <= $num; $i++) {
-            $hands[] = array_pop($this->cards);
+        for ($i = 1; $i <= 2; $i++) {
+            $hands[] = $this->drawCard();
         }
         return $hands;
     }
+
+    // 手札に1枚加える
+    public function addCard(array $hands): array
+    {
+        $hands[] = $this->drawCard();
+        return $hands;
+    }
+
+    // カードを1枚引く
+    public function drawCard ():Card
+    {
+        return array_pop($this->cards);
+    }
+
 }

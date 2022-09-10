@@ -6,10 +6,17 @@ use PHPUnit\Framework\TestCase;
 
 class DeckTest extends TestCase
 {
-    public function testDrawCards()
+
+    public function testDistributeCards()
     {
         $deck = new Deck();
-        $this->assertSame(4,count($deck->drawCards(2,[1,3])));
+        $this->assertSame(2,count($deck->distributeCards()));
+    }
+
+    public function testAddCard()
+    {
+        $deck = new Deck();
+        $this->assertSame(3,count($deck->addCard([1,3])));
     }
 
 }
