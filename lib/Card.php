@@ -2,8 +2,14 @@
 
 class Card
 {
-    public function __construct(private string $suit, private mixed $num)
+    public array $suitNum;
+
+    public function __construct(string $suit, mixed $num)
     {
+        $this->suitNum = [
+            'suit' => self::CARD_NAME[$suit],
+            'num' => $num,
+        ];
     }
 
     public const CARD_RANK = [
@@ -29,24 +35,23 @@ class Card
         'D' => 'ダイヤ',
     ];
 
-    public function getSuit(): string
+    // public function getSuit(): string
+    // {
+    //     return $this->suit;
+    // }
+
+    // public function getNum(): mixed
+    // {
+    //     return $this->num;
+    // }
+
+    public function getCardRank($string): int
     {
-        return $this->suit;
+        return self::CARD_RANK[$string];
     }
 
-    public function getNum(): mixed
-    {
-        return $this->num;
-    }
-
-    public function getCardRank(): int
-    {
-        $this->num = self::CARD_RANK[$this->getNum()];
-        return $this->num;
-    }
-
-    public function getCardName(): string
-    {
-        return self::CARD_NAME[$this->getSuit()];
-    }
+    // public function getCardName(): string
+    // {
+    //     return self::CARD_NAME[$this->getSuit()];
+    // }
 }

@@ -14,8 +14,8 @@ class Player implements Person
         return $deck->distributeCards();
     }
 
-    public function addCard (Deck $deck, array $hand): array
+    public function addCard (Deck $deck): Card
     {
-        return $deck->addCard($hand);
+        return $deck->addCard();
     }
 }

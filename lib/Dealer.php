@@ -10,8 +10,8 @@ class Dealer implements Person
         return $deck->distributeCards();
     }
 
-    public function addCard(Deck $deck, array $hand): array
+    public function addCard(Deck $deck): array
     {
-        return $deck->addCard($hand);
+        return $deck->addCard();
     }
 }
