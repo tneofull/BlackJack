@@ -45,9 +45,9 @@ class Card
     //     return $this->num;
     // }
 
-    public function getCardRank($string): int
+    public function getCardRank(mixed $num): int
     {
-        return self::CARD_RANK[$string];
+        return self::CARD_RANK[$num];
     }
 
     // public function getCardName(): string

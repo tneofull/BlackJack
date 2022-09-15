@@ -8,6 +8,10 @@ class Player implements Person
     {
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
     public function getHand (Deck $deck): array
     {
