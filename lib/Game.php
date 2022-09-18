@@ -7,15 +7,8 @@ require_once __DIR__ . '/Dealer.php';
 
 class Game
 {
-
-    public array $playerHands;
-    public array $dealerHands;
-
-    // プレイヤーの数字のみを格納
-    public array $playerCount;
-
-    // ディーラーの数字のみを格納
-    public array $dealerCount;
+    // ディーラーが勝負できない最小値を定義
+    public const DEALER_MIN_VALUE = 16;
 
     public function start()
     {
@@ -24,29 +17,56 @@ class Game
 
         $player = new Player('Mike');
 
-        $this->playerHands = $player->getHand($deck);
-        var_dump($this->playerHands);
+        $player->playerHands = $player->getHand($deck);
+        // var_dump($this->playerHands);
 
 
-        foreach ($this->playerHands as $card) {
+        foreach ($player->playerHands as $card) {
             $this->showDrawCard($card,$player);
-            $this->addCard($card);
+            $this->addCard($card, $player);
         }
 
-        // var_dump($this->playerCount);
+        // var_dump($this->handSum);
 
         $dealer = new Dealer('ディーラー');
-        $this->dealerHands = $dealer->getHand($deck);
+        $dealer->dealerHands = $dealer->getHand($deck);
 
-        $this->showDrawCard($this->dealerHands[0],$dealer);
+        $this->showDrawCard($dealer->dealerHands[0],$dealer);
+
+
+        foreach ($dealer->dealerHands as $card) {
+            $this->addCard($card, $dealer);
+        }
 
         echo 'ディーラーの引いた2枚目のカードはわかりません。' . PHP_EOL;
 
-        var_dump($this->dealerHands);
+        // var_dump($this->dealerHands);
 
 
-        // 望みの数値のなるまで再起的にカードを引く処理
-        $this->judgement($player,$deck);
+        // プレイヤーが勝負したい数値になるまで再起的にカードを引く
+        $this->playerDrawJudgement($player,$deck);
+
+
+        $this->showDrawCard($dealer->dealerHands[1], $dealer);
+
+
+        // ディラーの数字判定考え方
+        // カード合計が16以下なら引き続ける
+        while ($this->DealerDrawJudgement($dealer)) {
+
+            // カードを引き、表示する
+            $drawCard = $dealer->addCard($deck);
+            $this->showDrawCard($drawCard, $dealer);
+
+            // 手札にオブジェクトを追加
+            $dealer->dealerHands[] = $drawCard;
+
+            // 手札合計値のみを表す配列の末尾に引いたカードを追加
+            $this->addCard($drawCard, $dealer);
+        }
+
+        $this->showScore($player);
+        $this->showScore($dealer);
 
     }
 
@@ -60,16 +80,18 @@ class Game
     }
 
     // 手札合計を表す配列末尾に引いたカードを追加
-    public function addCard(Card $card): void
+    public function addCard(Card $card, Person $person): void
     {
-        $this->playerCount[] = $card->getCardRank($card->suitNum['num']);
+        $person->handSum[] = $card->getCardRank($card->suitNum['num']);
     }
 
 
-    public function judgement(Player $player, Deck $deck)
+    public function playerDrawJudgement(Player $player, Deck $deck)
     {
-        echo "{$player->getName()}の得点は{$this->calculateScore()}です。カードを引きますか？（Y/N）" . PHP_EOL;
+        echo "{$player->getName()}の得点は{$this->calculateScore($player)}です。カードを引きますか？（Y/N）" . PHP_EOL;
 
+
+        // 勝負したい数字になるまでカードを繰り返し引く
         Do  {
                 $input = trim(fgets(STDIN));
                 if ($input === 'Y') {
@@ -79,14 +101,13 @@ class Game
                 $this->showDrawCard($drawCard,$player);
 
                 // 手札にオブジェクトを追加
-                $this->playerHands[] = $drawCard;
+                $player->playerHands[] = $drawCard;
 
                 // 手札合計値のみを表す配列の末尾に引いたカードを追加
-                $this->addCard($drawCard);
-                self::judgement($player,$deck);
+                $this->addCard($drawCard, $player);
+                self::playerDrawJudgement($player,$deck);
 
                 } elseif ($input === 'N') {
-                    echo "{$player->getName()}の得点は{$this-> calculateScore()}で確定しました";
                     break;
                 }  else {
                     echo 'YかNを入力して下さい' . PHP_EOL;
@@ -94,11 +115,29 @@ class Game
             } while (!($input === 'Y' || $input === 'N'));
     }
 
-
-    public function calculateScore (): int
+    // ディーラーがカードを引くか機械的に判定
+    public function DealerDrawJudgement(Dealer $dealer): bool
     {
-        return array_sum($this->playerCount);
+        if ($this->calculateScore($dealer) <= GAME::DEALER_MIN_VALUE) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
+
+
+    // 手札の合計数を表示
+    public function calculateScore (Person $person): int
+    {
+        return array_sum($person->handSum);
+    }
+
+    // 合計得点を表示する
+    public function showScore (Person $person): void
+    {
+        echo "{$person->getName()}の得点は{$this->calculateScore($person)}です" . PHP_EOL;
+    }
+
 }
 
 $game = new Game();

@@ -4,6 +4,12 @@ require_once __DIR__ . '/Person.php';
 
 class Player implements Person
 {
+    // 手札の数字とマークを格納
+    public array $playerHands;
+
+    // 手札の数字のみを格納
+    public array $handSum;
+
     public function __construct(private string $name)
     {
     }

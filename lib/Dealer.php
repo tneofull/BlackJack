@@ -4,6 +4,12 @@ require_once __DIR__ . '/Person.php';
 
 class Dealer implements Person
 {
+    // 手札の数字とマークを格納
+    public array $dealerHands;
+
+    // 手札の数字のみを格納
+    public array $handSum;
+
     public function __construct(private string $name)
     {
     }
@@ -18,7 +24,7 @@ class Dealer implements Person
         return $deck->distributeCards();
     }
 
-    public function addCard(Deck $deck): array
+    public function addCard(Deck $deck): Card
     {
         return $deck->addCard();
     }
