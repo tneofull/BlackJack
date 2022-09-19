@@ -12,7 +12,7 @@ class Game
 
     public function start()
     {
-        echo 'ブラックジャックを開始します' . PHP_EOL;
+        echo 'ブラックジャックを開始します。' . PHP_EOL;
         $deck = new Deck();
 
         $player = new Player('Mike');
@@ -42,17 +42,17 @@ class Game
 
         // var_dump($this->dealerHands);
 
-
-        // プレイヤーが勝負したい数値になるまで再起的にカードを引く
+        // プレイヤーが勝負したい数値になるまで再帰的にカードを引く
         $this->playerDrawJudgement($player,$deck);
 
-
+        // ディーラーの2枚目のカードを表示する(文言の修正必要涙)
         $this->showDrawCard($dealer->dealerHands[1], $dealer);
 
 
         // ディラーの数字判定考え方
         // カード合計が16以下なら引き続ける
         while ($this->DealerDrawJudgement($dealer)) {
+            echo "{$dealer->getName()}の現在の得点は{$this->calculateScore($dealer)}です。" . PHP_EOL;
 
             // カードを引き、表示する
             $drawCard = $dealer->addCard($deck);
@@ -67,6 +67,9 @@ class Game
 
         $this->showScore($player);
         $this->showScore($dealer);
+
+        echo "{$this->judgeWinner($dealer, $player)}の勝ちです!" . PHP_EOL;
+        echo 'ゲームを終了します。' . PHP_EOL;
 
     }
 
@@ -105,12 +108,12 @@ class Game
 
                 // 手札合計値のみを表す配列の末尾に引いたカードを追加
                 $this->addCard($drawCard, $player);
-                self::playerDrawJudgement($player,$deck);
+                self::playerDrawJudgement($player,$deck); //再帰的に処理
 
                 } elseif ($input === 'N') {
                     break;
                 }  else {
-                    echo 'YかNを入力して下さい' . PHP_EOL;
+                    echo 'YかNを入力して下さい。' . PHP_EOL;
                 }
             } while (!($input === 'Y' || $input === 'N'));
     }
@@ -135,10 +138,24 @@ class Game
     // 合計得点を表示する
     public function showScore (Person $person): void
     {
-        echo "{$person->getName()}の得点は{$this->calculateScore($person)}です" . PHP_EOL;
+        echo "{$person->getName()}の得点は{$this->calculateScore($person)}です。" . PHP_EOL;
     }
 
-}
+    public function judgeWinner (Dealer $dealer, Player $player): string
+    {
+        // どちらかが21を超えているケースの処理
+        if ($this->calculateScore($player) > 21) {
+            return $dealer->getName();
+        } elseif ($this->calculateScore($dealer) > 21)
+            return $player->getName();
 
+        // プレイヤーはディーラーより大きい場合には勝利(引き分けはディーラーの勝利)
+        if ($this->calculateScore($player) > $this->calculateScore($dealer)) {
+            return $player->getName();
+        } else {
+            return $dealer->getName();
+        }
+    }
+}
 $game = new Game();
 $game->start();
