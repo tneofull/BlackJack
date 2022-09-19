@@ -1,62 +1,60 @@
 @startuml
-
+skinparam classAttributeIconSize 0
 
 class Game {
-  ' +cards1:array
-  ' +cards2:array
-  +__construct():void
+  +DEALER_MIN_VALUE:int
+  ' +__construct():void
   +start():array
-
+  +showDrawCard():void
+  +addCard():void
+  +playerDrawJudgement():void
+  +DealerDrawJudgement():bool
+  +calculateScore():int
+  +showScore():void
+  +judgeWinner():string
 }
 
 interface Person {
-  +name:string
-  +getHand():array
-  +addCard():array
+  +getName()
+  +getHand()
+  +addCard()
 }
 
 class Player implements Person {
   +name:string
+  +__construct():void
+  +getName():string
   +getHand():array
-  +addCard():array
+  +addCard():Card
 }
 
 class Dealer implements Person {
   +name:string
+  +__construct():void
+  +getName():string
   +getHand():array
-  +addCard():array
+  +addCard():Card
 }
 
 class Card {
   +CARD_RANK:array
   +CARD_NAME:array
-  -suit:string
-  -num:string
+  ' -suit:string
+  ' -num:string
   +__construct():void
-  +getSuit():string
-  +getNum():mixed
   +getCardRank():int
-  +getCardName():string
+  ' +getSuit():string
+  ' +getNum():mixed
+  ' +getCardName():string
 }
 
 class Deck {
-  -cards:array
+  +deck:array
   +__construct():void
   +distributeCards():array
-  +addCard():array
+  +addCard():Card
   +drawCard():Card
 }
-
-interface Rule {
-  +HIGH_CARD:string
-  +STRAIGHT:string
-  +getHand():array
-  +getWinner():int
-}
-
-
-Game "1" o-- "2..3" Card:1ゲームにつき\n2 or 3枚配られる?
-Game "1" o-- "2" HandEvaluator:1ゲームにつき\n2プレイヤーの判定？
 
 
 @enduml

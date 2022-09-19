@@ -26,8 +26,6 @@ class Game
             $this->addCard($card, $player);
         }
 
-        // var_dump($this->handSum);
-
         $dealer = new Dealer('ディーラー');
         $dealer->dealerHands = $dealer->getHand($deck);
 
@@ -45,11 +43,11 @@ class Game
         // プレイヤーが勝負したい数値になるまで再帰的にカードを引く
         $this->playerDrawJudgement($player,$deck);
 
-        // ディーラーの2枚目のカードを表示する(文言の修正必要涙)
-        $this->showDrawCard($dealer->dealerHands[1], $dealer);
+        // ディーラーの2枚目のカードを表示する(もっと良い表現ないかね、、)
+        echo "ディーラーの引いた2枚目のカードは{$dealer->dealerHands[1]->suitNum['suit']}の{$dealer->dealerHands[1]->suitNum['num']}でした。" . PHP_EOL;
 
 
-        // ディラーの数字判定考え方
+        // 【ディーラーの数字判定考え方】
         // カード合計が16以下なら引き続ける
         while ($this->DealerDrawJudgement($dealer)) {
             echo "{$dealer->getName()}の現在の得点は{$this->calculateScore($dealer)}です。" . PHP_EOL;
@@ -89,7 +87,7 @@ class Game
     }
 
 
-    public function playerDrawJudgement(Player $player, Deck $deck)
+    public function playerDrawJudgement(Player $player, Deck $deck): void
     {
         echo "{$player->getName()}の得点は{$this->calculateScore($player)}です。カードを引きますか？（Y/N）" . PHP_EOL;
 
@@ -157,5 +155,7 @@ class Game
         }
     }
 }
+
+// ↓ターミナルでゲームの流れを確認する時は下記コメントアウトを解除する↓
 $game = new Game();
 $game->start();
