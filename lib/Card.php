@@ -35,6 +35,11 @@ class Card
         'D' => 'ダイヤ',
     ];
 
+    public function getCardRank(mixed $num): int
+    {
+        return self::CARD_RANK[$num];
+    }
+
     // public function getSuit(): string
     // {
     //     return $this->suit;
@@ -44,11 +49,6 @@ class Card
     // {
     //     return $this->num;
     // }
-
-    public function getCardRank(mixed $num): int
-    {
-        return self::CARD_RANK[$num];
-    }
 
     // public function getCardName(): string
     // {
