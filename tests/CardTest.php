@@ -1,14 +1,13 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../lib/Card.php';
-require_once __DIR__ . '/../lib/Deck.php';
+namespace BlackJack\Test;
 
+use BlackJack\Card;
 use PHPUnit\Framework\TestCase;
+require_once __DIR__ . '/../vendor/autoload.php';
 
 class CardTest extends TestCase
 {
-
     // public function testGetSuit()
     // {
     //     $card = new Card('H',9);
@@ -23,8 +22,8 @@ class CardTest extends TestCase
 
     public function testGetCardRank()
     {
-        $card = new Card('H','J');
-        $this->assertSame(10,$card->getCardRank($card->suitNum['num']));
+        $card = new Card('H', 'J');
+        $this->assertSame(10, $card->getCardRank($card->suitNum['num']));
     }
 
     // public function testGetCardName()
@@ -32,5 +31,4 @@ class CardTest extends TestCase
     //     $card = new Card('H','J');
     //     $this->assertSame('ハート',$card->getCardName());
     // }
-
 }

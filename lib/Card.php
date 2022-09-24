@@ -1,5 +1,7 @@
 <?php
 
+namespace BlackJack;
+
 class Card
 {
     public array $suitNum;

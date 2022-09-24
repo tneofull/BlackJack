@@ -1,4 +1,7 @@
 <?php
+
+namespace BlackJack;
+
 require_once __DIR__ . '/Card.php';
 
 class Deck
@@ -34,9 +37,8 @@ class Deck
     }
 
     // カードを1枚引く
-    public function drawCard (): Card
+    public function drawCard(): Card
     {
         return array_pop($this->deck);
     }
-
 }

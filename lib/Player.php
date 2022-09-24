@@ -1,5 +1,7 @@
 <?php
 
+namespace BlackJack;
+
 require_once __DIR__ . '/Person.php';
 
 class Player implements Person
@@ -19,12 +21,12 @@ class Player implements Person
         return $this->name;
     }
 
-    public function getHand (Deck $deck): array
+    public function getHand(Deck $deck): array
     {
         return $deck->distributeCards();
     }
 
-    public function addCard (Deck $deck): Card
+    public function addCard(Deck $deck): Card
     {
         return $deck->addCard();
     }

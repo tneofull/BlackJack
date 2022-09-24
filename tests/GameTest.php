@@ -1,8 +1,13 @@
 <?php
 
-require_once __DIR__ . '/../lib/Game.php';
+namespace BlackJack\Test;
 
+use BlackJack\Game;
+use BlackJack\Dealer;
+use BlackJack\Player;
 use PHPUnit\Framework\TestCase;
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 class GameTest extends TestCase
 {
@@ -12,10 +17,10 @@ class GameTest extends TestCase
         $dealer = new Dealer('ディーラー');
 
         $dealer->handSum = [10,6];
-        $this->assertSame(TRUE, $game->DealerDrawJudgement($dealer));
+        $this->assertSame(true, $game->DealerDrawJudgement($dealer));
 
         $dealer->handSum = [10,7];
-        $this->assertSame(FALSE, $game->DealerDrawJudgement($dealer));
+        $this->assertSame(false, $game->DealerDrawJudgement($dealer));
     }
 
     public function testCalculateScore()
