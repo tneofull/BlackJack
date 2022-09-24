@@ -2,7 +2,8 @@
     "name": "root/html",
     "autoload": {
         "psr-4": {
-            "Root\\Html\\": "src/"
+            "BlackJack\\": "lib/",
+            "BlackJack\\Test\\": "tests/"
         }
     },
     "require-dev": {
@@ -13,7 +14,7 @@
     },
     "scripts": {
         "phpcs": "./vendor/bin/phpcs --standard=./customPSR12.xml",
-        "phpmd": "./vendor/bin/phpmd tests/ text rulesets.xml",
+        "phpmd": "./vendor/bin/phpmd ./ text rulesets.xml",
         "phpstan": "./vendor/bin/phpstan analyse -c phpstan.neon",
         "phpunit": "./vendor/bin/phpunit"
     }
