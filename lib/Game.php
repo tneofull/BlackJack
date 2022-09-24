@@ -2,17 +2,18 @@
 
 namespace BlackJack;
 
-require_once __DIR__ . '/Deck.php';
-require_once __DIR__ . '/Card.php';
-require_once __DIR__ . '/Player.php';
-require_once __DIR__ . '/Dealer.php';
+use BlackJack\Dealer;
+use BlackJack\Player;
+use BlackJack\Deck;
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 class Game
 {
     // ディーラーが勝負できない最小値を定義
     public const DEALER_MIN_VALUE = 16;
 
-    public function start()
+    public function start(): void
     {
         echo 'ブラックジャックを開始します。' . PHP_EOL;
         $deck = new Deck();

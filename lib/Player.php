@@ -2,8 +2,6 @@
 
 namespace BlackJack;
 
-require_once __DIR__ . '/Person.php';
-
 class Player implements Person
 {
     // 手札の数字とマークを格納

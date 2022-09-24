@@ -4,6 +4,7 @@ namespace BlackJack\Test;
 
 use BlackJack\Card;
 use PHPUnit\Framework\TestCase;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 class CardTest extends TestCase

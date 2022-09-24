@@ -2,7 +2,9 @@
 
 namespace BlackJack;
 
-require_once __DIR__ . '/Card.php';
+use BlackJack\Card;
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 class Deck
 {
