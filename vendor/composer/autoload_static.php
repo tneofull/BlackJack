@@ -25,10 +25,6 @@ class ComposerStaticInitcae6ad1ae8bf2fcff02b1951812fd6f2
             'Symfony\\Component\\DependencyInjection\\' => 38,
             'Symfony\\Component\\Config\\' => 25,
         ),
-        'R' => 
-        array (
-            'Root\\Html\\' => 10,
-        ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
@@ -45,6 +41,11 @@ class ComposerStaticInitcae6ad1ae8bf2fcff02b1951812fd6f2
         array (
             'Composer\\XdebugHandler\\' => 23,
             'Composer\\Pcre\\' => 14,
+        ),
+        'B' => 
+        array (
+            'BlackJack\\Test\\' => 15,
+            'BlackJack\\' => 10,
         ),
     );
 
@@ -72,10 +73,6 @@ class ComposerStaticInitcae6ad1ae8bf2fcff02b1951812fd6f2
         'Symfony\\Component\\Config\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
-        ),
-        'Root\\Html\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
         ),
         'Psr\\Log\\' => 
         array (
@@ -108,6 +105,14 @@ class ComposerStaticInitcae6ad1ae8bf2fcff02b1951812fd6f2
         'Composer\\Pcre\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/pcre/src',
+        ),
+        'BlackJack\\Test\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/tests',
+        ),
+        'BlackJack\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/lib',
         ),
     );
 

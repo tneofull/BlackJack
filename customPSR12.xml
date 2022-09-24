@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ruleset name="Custom PSR12">
 
-  <file>./tests</file> <!--ルールを適用したい範囲をしておく こうするとカレントディレクトリ以下全てとなる
+  <file>./</file> <!--ルールを適用したい範囲をしておく こうするとカレントディレクトリ以下全てとなる
   -->
   <exclude-pattern>./vendor/*</exclude-pattern> <!--ルールを適用しない範囲のディレクトリを指定できる *は全ての意味-->
 
@@ -11,7 +11,6 @@
   <rule ref="PSR12"> <!--どの規約に準ずるかの指定-->
     <exclude name="Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase"/> <!--適応しない規約名を挙げられる-->
     <exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />
-    <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace" />
+    <!-- <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace" /> -->
   </rule>
 </ruleset>  <!--←閉じタグ忘れないこと -->
-
