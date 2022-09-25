@@ -6,6 +6,7 @@ use BlackJack\Person;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+
 class Dealer implements Person
 {
     // 手札の数字とマークを格納

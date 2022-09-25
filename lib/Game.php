@@ -87,7 +87,7 @@ class Game
     // 手札合計を表す配列末尾に引いたカードを追加
     public function addCard(Card $card, Person $person): void
     {
-        $person->handSum[] = $card->getCardRank($card->suitNum['num']);
+        $person->handSum[] = $card->getCardRank($card->suitNum['num']); /* @phpstan-ignore-line */
     }
 
 
@@ -121,7 +121,7 @@ class Game
     // ディーラーがカードを引くか機械的に判定
     public function dealerDrawJudgement(Dealer $dealer): bool
     {
-        if ($this->calculateScore($dealer) <= GAME::DEALER_MIN_VALUE) {
+        if ($this->calculateScore($dealer) <= self::DEALER_MIN_VALUE) {
             return true;
         } else {
             return false;
@@ -132,7 +132,7 @@ class Game
     // 手札の合計数を表示
     public function calculateScore(Person $person): int
     {
-        return array_sum($person->handSum);
+        return array_sum($person->handSum);/* @phpstan-ignore-line */
     }
 
     // 合計得点を表示する

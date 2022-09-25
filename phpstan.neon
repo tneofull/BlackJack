@@ -2,3 +2,7 @@ parameters:
 	level: 6
 	paths:
 		- lib/
+	ignoreErrors:
+		- '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) has no return type specified\.#'
+		- '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) return type has no value type specified in iterable type array\.#'
+		- '#Property [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_\$]+ type has no value type specified in iterable type array\.#'
