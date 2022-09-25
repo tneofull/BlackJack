@@ -26,6 +26,7 @@ class Deck
     // カードを2枚配る(ゲームの初期セット)
     public function distributeCards(): array
     {
+        $hands = [];
         for ($i = 1; $i <= 2; $i++) {
             $hands[] = $this->drawCard();
         }

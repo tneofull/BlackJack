@@ -14,7 +14,7 @@
     },
     "scripts": {
         "phpcs": "./vendor/bin/phpcs --standard=./customPSR12.xml",
-        "phpmd": "./vendor/bin/phpmd ./ text rulesets.xml",
+        "phpmd": "./vendor/bin/phpmd . text rulesets.xml --suffixes php --exclude vendor",
         "phpstan": "./vendor/bin/phpstan analyse -c phpstan.neon",
         "phpunit": "./vendor/bin/phpunit"
     }
