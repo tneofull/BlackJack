@@ -5,6 +5,7 @@ namespace BlackJack;
 use BlackJack\Dealer;
 use BlackJack\Player;
 use BlackJack\Deck;
+use BlackJack\CalculateScore;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -43,6 +44,8 @@ class Game
 
         // var_dump($this->dealerHands);
 
+        // $calculateScore = new CalculateScore();
+
         // プレイヤーが勝負したい数値になるまで再帰的にカードを引く
         $this->playerDrawJudgement($player, $deck);
 
@@ -55,7 +58,7 @@ class Game
         // 【ディーラーの数字判定考え方】
         // カード合計が16以下なら引き続ける
         while ($this->dealerDrawJudgement($dealer)) {
-            echo "{$dealer->getName()}の現在の得点は{$this->calculateScore($dealer)}です。" . PHP_EOL;
+            echo $dealer->getName() . 'の現在の得点は' . CalculateScore::calculateScore($dealer) . 'です。' . PHP_EOL;
 
             // カードを引き、表示する
             $drawCard = $dealer->addCard($deck);
@@ -93,7 +96,7 @@ class Game
 
     public function playerDrawJudgement(Player $player, Deck $deck): void
     {
-        echo "{$player->getName()}の得点は{$this->calculateScore($player)}です。カードを引きますか？（Y/N）" . PHP_EOL;
+        echo "{$player->getName()}の得点は" . CalculateScore::calculateScore($player) . 'です。カードを引きますか？（Y/N）' . PHP_EOL;
 
 
         // 勝負したい数字になるまでカードを繰り返し引く
@@ -121,37 +124,30 @@ class Game
     // ディーラーがカードを引くか機械的に判定
     public function dealerDrawJudgement(Dealer $dealer): bool
     {
-        if ($this->calculateScore($dealer) <= self::DEALER_MIN_VALUE) {
+        if (CalculateScore::calculateScore($dealer) <= self::DEALER_MIN_VALUE) {
             return true;
         } else {
             return false;
         }
     }
 
-
-    // 手札の合計数を表示
-    public function calculateScore(Person $person): int
-    {
-        return array_sum($person->handSum);/* @phpstan-ignore-line */
-    }
-
     // 合計得点を表示する
     public function showScore(Person $person): void
     {
-        echo "{$person->getName()}の得点は{$this->calculateScore($person)}です。" . PHP_EOL;
+        echo $person->getName() . 'の得点は' . CalculateScore::calculateScore($person) . 'です。' . PHP_EOL;
     }
 
     public function judgeWinner(Dealer $dealer, Player $player): string
     {
         // どちらかが21を超えているケースの処理
-        if ($this->calculateScore($player) > 21) {
+        if (CalculateScore::calculateScore($player) > 21) {
             return $dealer->getName();
-        } elseif ($this->calculateScore($dealer) > 21) {
+        } elseif (CalculateScore::calculateScore($dealer) > 21) {
             return $player->getName();
         }
 
         // プレイヤーはディーラーより大きい場合には勝利(引き分けはディーラーの勝利)
-        if ($this->calculateScore($player) > $this->calculateScore($dealer)) {
+        if (CalculateScore::calculateScore($player) > CalculateScore::calculateScore($dealer)) {
             return $player->getName();
         } else {
             return $dealer->getName();

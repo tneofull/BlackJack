@@ -23,18 +23,6 @@ class GameTest extends TestCase
         $this->assertSame(false, $game->DealerDrawJudgement($dealer));
     }
 
-    public function testCalculateScore()
-    {
-        $game = new Game();
-        $dealer = new Dealer('ディーラー');
-
-        $dealer->handSum = [10, 6];
-        $this->assertSame(16, $game->calculateScore($dealer));
-
-        $dealer->handSum = [10, 7];
-        $this->assertSame(17, $game->calculateScore($dealer));
-    }
-
     public function testJudgeWinner()
     {
 
