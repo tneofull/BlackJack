@@ -6,6 +6,7 @@ use BlackJack\Dealer;
 use BlackJack\Player;
 use BlackJack\Deck;
 use BlackJack\CalculateScore;
+use BlackJack\ShowScore;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -71,8 +72,8 @@ class Game
             $this->addCard($drawCard, $dealer);
         }
 
-        $this->showScore($player);
-        $this->showScore($dealer);
+        ShowScore::showScore($player);
+        ShowScore::showScore($dealer);
 
         echo "{$this->judgeWinner($dealer,$player)}の勝ちです!" . PHP_EOL;
         echo 'ゲームを終了します。' . PHP_EOL;
@@ -131,11 +132,6 @@ class Game
         }
     }
 
-    // 合計得点を表示する
-    public function showScore(Person $person): void
-    {
-        echo $person->getName() . 'の得点は' . CalculateScore::calculateScore($person) . 'です。' . PHP_EOL;
-    }
 
     public function judgeWinner(Dealer $dealer, Player $player): string
     {

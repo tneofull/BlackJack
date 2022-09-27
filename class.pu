@@ -8,8 +8,6 @@ class Game {
   +addCard():void
   +playerDrawJudgement():void
   +DealerDrawJudgement():bool
-  +calculateScore():int
-  +showScore():void
   +judgeWinner():string
 }
 
@@ -24,7 +22,7 @@ class Player implements Person {
   +__construct():void
   +getName():string
   +getHand():array
-  +addCard():Card
+  +addCard:Card
 }
 
 class Dealer implements Person {
@@ -57,6 +55,10 @@ class Deck {
 
 class CalculateScore {
   {static}+calculateScore():int
+}
+
+class ShowScore {
+  {static}+showScore():int
 }
 
 
