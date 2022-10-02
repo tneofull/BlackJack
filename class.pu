@@ -3,11 +3,11 @@ skinparam classAttributeIconSize 0
 
 class Game {
   +DEALER_MIN_VALUE:int
-  +start():array
+  +start():void
   +showDrawCard():void
   +addCard():void
   +playerDrawJudgement():void
-  +DealerDrawJudgement():bool
+  +dealerDrawJudgement():bool
   +judgeWinner():string
 }
 
@@ -22,7 +22,7 @@ class Player implements Person {
   +__construct():void
   +getName():string
   +getHand():array
-  +addCard:Card
+  +addCard():Card
 }
 
 class Dealer implements Person {
@@ -61,5 +61,10 @@ class ShowScore {
   {static}+showScore():int
 }
 
+Player -- CalculateScore
+Dealer -- CalculateScore
+Player -- ShowScore
+Dealer -- ShowScore
+Deck -- Card
 
 @enduml
