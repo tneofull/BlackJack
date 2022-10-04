@@ -50,7 +50,6 @@ class Deck {
   +__construct():void
   +distributeCards():array
   +addCard():Card
-  +drawCard():Card
 }
 
 class CalculateScore {

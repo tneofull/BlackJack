@@ -45,10 +45,8 @@ class Game
 
         // var_dump($this->dealerHands);
 
-        // $calculateScore = new CalculateScore();
-
         // プレイヤーが勝負したい数値になるまで再帰的にカードを引く
-        $this->playerDrawJudgement($player, $deck);
+        PlayerDrawJudgement::playerDrawJudgement($player, $deck);
 
         // ディーラーの2枚目のカードを表示する(もっと良い表現ないかね、、)
         $dealerSuitNo2 = $dealer->dealerHands[1]->suitNum['suit'];
@@ -81,7 +79,7 @@ class Game
 
 
     // 引いたカードの表示
-    public function showDrawCard(Card $card, Person $person): void
+    public static function showDrawCard(Card $card, Person $person): void
     {
         $suit = $card->suitNum['suit'];
         $num = $card->suitNum['num'];
@@ -89,37 +87,9 @@ class Game
     }
 
     // 手札合計を表す配列末尾に引いたカードを追加
-    public function addCard(Card $card, Person $person): void
+    public static function addCard(Card $card, Person $person): void
     {
         $person->handSum[] = $card->getCardRank($card->suitNum['num']); /* @phpstan-ignore-line */
-    }
-
-
-    public function playerDrawJudgement(Player $player, Deck $deck): void
-    {
-        echo "{$player->getName()}の得点は" . CalculateScore::calculateScore($player) . 'です。カードを引きますか？（Y/N）' . PHP_EOL;
-
-
-        // 勝負したい数字になるまでカードを繰り返し引く
-        do {
-            $input = trim(fgets(STDIN));
-            if ($input === 'Y') {
-                // カードを引き、表示する
-                $drawCard = $player->addCard($deck);
-                $this->showDrawCard($drawCard, $player);
-
-                // 手札にオブジェクトを追加
-                $player->playerHands[] = $drawCard;
-
-                // 手札合計値のみを表す配列の末尾に引いたカードを追加
-                $this->addCard($drawCard, $player);
-                self::playerDrawJudgement($player, $deck); //再帰的に処理
-            } elseif ($input === 'N') {
-                break;
-            } else {
-                echo 'YかNを入力して下さい。' . PHP_EOL;
-            }
-        } while (!($input === 'Y' || $input === 'N'));
     }
 
     // ディーラーがカードを引くか機械的に判定
@@ -152,5 +122,5 @@ class Game
 }
 
 // ↓ターミナルでゲームの流れを確認する時は下記コメントアウトを解除する↓
-// $game = new Game();
-// $game->start();
+$game = new Game();
+$game->start();

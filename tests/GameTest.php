@@ -17,10 +17,10 @@ class GameTest extends TestCase
         $dealer = new Dealer('ディーラー');
 
         $dealer->handSum = [10,6];
-        $this->assertSame(true, $game->DealerDrawJudgement($dealer));
+        $this->assertSame(true, $game->dealerDrawJudgement($dealer));
 
         $dealer->handSum = [10,7];
-        $this->assertSame(false, $game->DealerDrawJudgement($dealer));
+        $this->assertSame(false, $game->dealerDrawJudgement($dealer));
     }
 
     public function testJudgeWinner()
