@@ -5,6 +5,8 @@ namespace BlackJack;
 use BlackJack\Dealer;
 use BlackJack\Player;
 use BlackJack\Deck;
+use BlackJack\CalculateScore;
+use BlackJack\ShowScore;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -44,7 +46,7 @@ class Game
         // var_dump($this->dealerHands);
 
         // プレイヤーが勝負したい数値になるまで再帰的にカードを引く
-        $this->playerDrawJudgement($player, $deck);
+        PlayerDrawJudgement::playerDrawJudgement($player, $deck);
 
         // ディーラーの2枚目のカードを表示する(もっと良い表現ないかね、、)
         $dealerSuitNo2 = $dealer->dealerHands[1]->suitNum['suit'];
@@ -55,7 +57,7 @@ class Game
         // 【ディーラーの数字判定考え方】
         // カード合計が16以下なら引き続ける
         while ($this->dealerDrawJudgement($dealer)) {
-            echo "{$dealer->getName()}の現在の得点は{$this->calculateScore($dealer)}です。" . PHP_EOL;
+            echo $dealer->getName() . 'の現在の得点は' . CalculateScore::calculateScore($dealer) . 'です。' . PHP_EOL;
 
             // カードを引き、表示する
             $drawCard = $dealer->addCard($deck);
@@ -68,8 +70,8 @@ class Game
             $this->addCard($drawCard, $dealer);
         }
 
-        $this->showScore($player);
-        $this->showScore($dealer);
+        ShowScore::showScore($player);
+        ShowScore::showScore($dealer);
 
         echo "{$this->judgeWinner($dealer,$player)}の勝ちです!" . PHP_EOL;
         echo 'ゲームを終了します。' . PHP_EOL;
@@ -77,7 +79,7 @@ class Game
 
 
     // 引いたカードの表示
-    public function showDrawCard(Card $card, Person $person): void
+    public static function showDrawCard(Card $card, Person $person): void
     {
         $suit = $card->suitNum['suit'];
         $num = $card->suitNum['num'];
@@ -85,43 +87,15 @@ class Game
     }
 
     // 手札合計を表す配列末尾に引いたカードを追加
-    public function addCard(Card $card, Person $person): void
+    public static function addCard(Card $card, Person $person): void
     {
         $person->handSum[] = $card->getCardRank($card->suitNum['num']); /* @phpstan-ignore-line */
-    }
-
-
-    public function playerDrawJudgement(Player $player, Deck $deck): void
-    {
-        echo "{$player->getName()}の得点は{$this->calculateScore($player)}です。カードを引きますか？（Y/N）" . PHP_EOL;
-
-
-        // 勝負したい数字になるまでカードを繰り返し引く
-        do {
-            $input = trim(fgets(STDIN));
-            if ($input === 'Y') {
-                // カードを引き、表示する
-                $drawCard = $player->addCard($deck);
-                $this->showDrawCard($drawCard, $player);
-
-                // 手札にオブジェクトを追加
-                $player->playerHands[] = $drawCard;
-
-                // 手札合計値のみを表す配列の末尾に引いたカードを追加
-                $this->addCard($drawCard, $player);
-                self::playerDrawJudgement($player, $deck); //再帰的に処理
-            } elseif ($input === 'N') {
-                break;
-            } else {
-                echo 'YかNを入力して下さい。' . PHP_EOL;
-            }
-        } while (!($input === 'Y' || $input === 'N'));
     }
 
     // ディーラーがカードを引くか機械的に判定
     public function dealerDrawJudgement(Dealer $dealer): bool
     {
-        if ($this->calculateScore($dealer) <= self::DEALER_MIN_VALUE) {
+        if (CalculateScore::calculateScore($dealer) <= self::DEALER_MIN_VALUE) {
             return true;
         } else {
             return false;
@@ -129,29 +103,17 @@ class Game
     }
 
 
-    // 手札の合計数を表示
-    public function calculateScore(Person $person): int
-    {
-        return array_sum($person->handSum);/* @phpstan-ignore-line */
-    }
-
-    // 合計得点を表示する
-    public function showScore(Person $person): void
-    {
-        echo "{$person->getName()}の得点は{$this->calculateScore($person)}です。" . PHP_EOL;
-    }
-
     public function judgeWinner(Dealer $dealer, Player $player): string
     {
         // どちらかが21を超えているケースの処理
-        if ($this->calculateScore($player) > 21) {
+        if (CalculateScore::calculateScore($player) > 21) {
             return $dealer->getName();
-        } elseif ($this->calculateScore($dealer) > 21) {
+        } elseif (CalculateScore::calculateScore($dealer) > 21) {
             return $player->getName();
         }
 
         // プレイヤーはディーラーより大きい場合には勝利(引き分けはディーラーの勝利)
-        if ($this->calculateScore($player) > $this->calculateScore($dealer)) {
+        if (CalculateScore::calculateScore($player) > CalculateScore::calculateScore($dealer)) {
             return $player->getName();
         } else {
             return $dealer->getName();
@@ -160,5 +122,5 @@ class Game
 }
 
 // ↓ターミナルでゲームの流れを確認する時は下記コメントアウトを解除する↓
-// $game = new Game();
-// $game->start();
+$game = new Game();
+$game->start();

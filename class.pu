@@ -3,14 +3,11 @@ skinparam classAttributeIconSize 0
 
 class Game {
   +DEALER_MIN_VALUE:int
-  ' +__construct():void
-  +start():array
+  +start():void
   +showDrawCard():void
   +addCard():void
   +playerDrawJudgement():void
-  +DealerDrawJudgement():bool
-  +calculateScore():int
-  +showScore():void
+  +dealerDrawJudgement():bool
   +judgeWinner():string
 }
 
@@ -53,8 +50,20 @@ class Deck {
   +__construct():void
   +distributeCards():array
   +addCard():Card
-  +drawCard():Card
 }
 
+class CalculateScore {
+  {static}+calculateScore():int
+}
+
+class ShowScore {
+  {static}+showScore():int
+}
+
+Player -- CalculateScore
+Dealer -- CalculateScore
+Player -- ShowScore
+Dealer -- ShowScore
+Deck -- Card
 
 @enduml

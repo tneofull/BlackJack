@@ -15,6 +15,13 @@ class PlayerTest extends TestCase
         $player = new Player('Mike');
         $this->assertSame('Mike', $player->getName());
     }
+    
+    public function testGetHand()
+    {
+        $player = new Player('Mike');
+        $deck = new Deck();
+        $this->assertSame(2, count($player->getHand($deck)));
+    }
 
     public function testAddCard()
     {
@@ -23,10 +30,4 @@ class PlayerTest extends TestCase
         $this->assertSame(2, count($player->addCard($deck)->suitNum));
     }
 
-    public function testGetHand()
-    {
-        $player = new Player('Mike');
-        $deck = new Deck();
-        $this->assertSame(2, count($player->getHand($deck)));
-    }
 }

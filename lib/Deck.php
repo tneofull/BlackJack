@@ -28,7 +28,7 @@ class Deck
     {
         $hands = [];
         for ($i = 1; $i <= 2; $i++) {
-            $hands[] = $this->drawCard();
+            $hands[] = $this->addCard();
         }
         return $hands;
     }
@@ -36,12 +36,7 @@ class Deck
     // 手札に1枚加える
     public function addCard(): Card
     {
-        return $this->drawCard();
-    }
-
-    // カードを1枚引く
-    public function drawCard(): Card
-    {
         return array_pop($this->deck);
     }
+
 }
