@@ -122,5 +122,5 @@ class Game
 }
 
 // ↓ターミナルでゲームの流れを確認する時は下記コメントアウトを解除する↓
-$game = new Game();
-$game->start();
+// $game = new Game();
+// $game->start();

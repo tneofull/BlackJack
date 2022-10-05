@@ -2,8 +2,6 @@
 
 namespace BlackJack;
 
-use BlackJack\Person;
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
 
