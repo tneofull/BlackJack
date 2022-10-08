@@ -6,9 +6,12 @@ class Game {
   +start():void
   +showDrawCard():void
   +addCard():void
-  +playerDrawJudgement():void
   +dealerDrawJudgement():bool
   +judgeWinner():string
+}
+
+class playerDrawJudgement {
+  {static}+playerDrawJudgement():void
 }
 
 interface Person {

@@ -13,7 +13,6 @@ class PlayerDrawJudgement
     {
         echo "{$player->getName()}の得点は" . CalculateScore::calculateScore($player) . 'です。カードを引きますか？（Y/N）' . PHP_EOL;
 
-
         // 勝負したい数字になるまでカードを繰り返し引く
         do {
             $input = trim(fgets(STDIN));
