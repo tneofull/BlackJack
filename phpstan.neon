@@ -5,4 +5,5 @@ parameters:
 	ignoreErrors:
 		- '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) has no return type specified\.#'
 		- '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) return type has no value type specified in iterable type array\.#'
+		- '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) has parameter [a-zA-Z0-9\\_\$]+ with no type specified\.#'
 		- '#Property [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_\$]+ type has no value type specified in iterable type array\.#'

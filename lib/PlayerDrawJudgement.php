@@ -3,6 +3,7 @@
 namespace BlackJack;
 
 use BlackJack\CalculateScore;
+use BlackJack\Game;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -19,13 +20,13 @@ class PlayerDrawJudgement
             if ($input === 'Y') {
                 // カードを引き、表示する
                 $drawCard = $player->addCard($deck);
-                GAME::showDrawCard($drawCard, $player);
+                Game::showDrawCard($drawCard, $player);
 
                 // 手札にオブジェクトを追加
                 $player->playerHands[] = $drawCard;
 
                 // 手札合計値のみを表す配列の末尾に引いたカードを追加
-                GAME::addCard($drawCard, $player);
+                Game::addCard($drawCard, $player);
                 self::playerDrawJudgement($player, $deck); //再帰的に処理
             } elseif ($input === 'N') {
                 break;

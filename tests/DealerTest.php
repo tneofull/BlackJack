@@ -23,7 +23,7 @@ class DealerTest extends TestCase
         $deck = new Deck();
         $this->assertSame(2, count($dealer->getHand($deck)));
     }
-    
+
     public function testAddCard()
     {
         $dealer = new Dealer('ディーラー');

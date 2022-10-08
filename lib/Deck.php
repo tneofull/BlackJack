@@ -38,5 +38,4 @@ class Deck
     {
         return array_pop($this->deck);
     }
-
 }
